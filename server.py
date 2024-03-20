@@ -1,14 +1,17 @@
 from flask import Flask,request,render_template
 import datetime
+import os
 app =Flask(__name__)
 date = datetime.datetime.now().strftime('%Y%m%d')
-file_path="./sensor_data_" + date +".csv"
+file_path="./template/csv/sensor_data_" + date +".csv"
 port_num=21118
-f = open(file_path, 'w')
-f.close()
+if os.path.isfile(file_path)==False :
+  f = open(file_path, 'w')
+  f.write("時間"+"," + "数値")
+  f.close()
 @app.route('/',methods=['GET'])
 def get_html():
-    return render_template('./index.html')
+    return render_template('./index2.html')
 @app.route('/lux',methods=['POST'])
 def update_lux():
    time = request.form["time"]
