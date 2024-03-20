@@ -14,7 +14,7 @@
     var date= now.getDate();
     // 1) ファイル(fname)を読み込む
     function getValue(){     // onload 時実行
-      var fname = '/csv/sensor_data_' + year + month + date + '.csv';  // 利用ファイル名を指定  --------------------
+      var fname = '../sensor_data_' + year + month + date + '.csv';  // 利用ファイル名を指定  --------------------
       
       // 2) 該当 csvファイルから chartデータに変換 getCsv( fname ) ----------------
       ma = getCsv( fname ); //  → function: getCsv( fname )
