@@ -15,7 +15,7 @@ def update_lux():
    lux = request.form["lux"]
    try:
         f = open(file_path, 'a')
-        f.write(time + "," + lux + "," + "\ns")
+        f.write(time + "," + lux + "," + "\n")
         return "succeeded to write" 
    except Exception as e:
      print(e)
