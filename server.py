@@ -1,7 +1,7 @@
 from flask import Flask,request,render_template
 import datetime
 app =Flask(__name__)
-date = datetime.datetime.now().strftime('%Y/%m/%d')
+date = datetime.datetime.now().strftime('%Y%m%d')
 file_path="./sensor_data_" + date +".csv"
 port_num=21118
 f = open(file_path, 'w')
