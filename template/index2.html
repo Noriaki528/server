@@ -9,10 +9,13 @@
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script>
     var ma = new Array();  var data = new Array(); var res = new Array();
+    var year =now.getFullyear();
+    var month = now.getMonth()+1;
+    var date= now.getDate();
     // 1) ファイル(fname)を読み込む
     function getValue(){     // onload 時実行
-      var fname = 'data/boueki.csv';  // 利用ファイル名を指定  --------------------
-      // データ出典 http://www.mlit.go.jp/hakusyo/mlit/h27/hakusho/h28/html/n1114000.html
+      var fname = '/csv/sensor_data_' + year + month + date + '.csv';  // 利用ファイル名を指定  --------------------
+      
       // 2) 該当 csvファイルから chartデータに変換 getCsv( fname ) ----------------
       ma = getCsv( fname ); //  → function: getCsv( fname )
       // 3) 該当データ(ma)をgoogle.chartsで表示 → drawVisualization() ------------
@@ -47,16 +50,15 @@
       function drawVisualization() {
         data = google.visualization.arrayToDataTable( ma );
         var options = {
-          title : '貿易額推移', 
+          title : 'ホコリ濃度', 
             // 出典 http://www.mlit.go.jp/hakusyo/mlit/h27/hakusho/h28/html/n1114000.html
             titleTextStyle : { color: '#333', fontSize: 20 },
-          vAxis: {title: '金額 [兆円]'},
-          hAxis: {title: ma[0][0] },
-          seriesType: 'bars',            // 全体は棒グラフ(default='line')
-            legendTextStyle : { color: '#333', fontSize: 12 },
-            isStacked: true              // 積み上げ棒グラフ
+          vAxis: {title: '数値'},
+          hAxis: {title: '時間' },
+          seriesType: 'line',            // 全体は棒グラフ(default='line')
+            legendTextStyle : { color: '#333', fontSize: 12 },             // 積み上げ棒グラフ
         };
-        var chart = new google.visualization.ComboChart(document.getElementById('graph'));
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
         chart.draw(data, options);
       }; // end of drawVisualization() --------------------------------------
   </script>
