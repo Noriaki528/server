@@ -3,7 +3,7 @@ import datetime
 import os
 app =Flask(__name__)
 date = datetime.datetime.now().strftime('%Y%m%d')
-file_path="./template/csv/sensor_data_" + date +".csv"
+file_path="./sensor_data_" + date +".csv"
 port_num=21118
 ###if os.path.isfile(file_path)==False :
 f = open(file_path, 'w')
