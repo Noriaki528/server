@@ -1,6 +1,8 @@
 from flask import Flask,request,render_template
+import datetime
 app =Flask(__name__)
-file_path="./sensor_data.csv"
+date = datetime.datetime.now().strftime('%Y/%m/%d')
+file_path="./sensor_data_" + date +".csv"
 port_num=21118
 
 @app.route('/',methods=['GET'])
