@@ -29,7 +29,7 @@ def get_lux():
      print(e)
    finally:
      f.close()
-   return lux
+     return lux
 
 if __name__ == '__main__':
    app.run(debug=True, host='0.0.0.0', port=port_num)
