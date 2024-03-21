@@ -7,11 +7,11 @@ file_path="./sensor_data_" + date +".csv"
 port_num=21118
 ###if os.path.isfile(file_path)==False :
 f = open(file_path, 'w')
-f.write("時間"+"," + "数値")
+f.write("時間"+"," + "数値" + "\n")
 f.close()
 @app.route('/',methods=['GET'])
 def get_html():
-    return render_template('./index.html')
+    return render_template('./index2.html')
 @app.route('/lux',methods=['POST'])
 def update_lux():
    time = request.form["time"]
