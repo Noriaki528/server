@@ -7,7 +7,7 @@ file_path="./sensor_data_" + date +".csv"
 port_num=21118
 #if os.path.isfile(file_path)==False :
 f = open(file_path, 'w')
-f.write("時間"+"," + "数値" + "\n")
+f.write("time"+"," + "value" + "\n")
 f.close()
 @app.route('/',methods=['GET'])
 def get_html():
