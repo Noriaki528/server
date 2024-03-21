@@ -1,0 +1,79 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>File 選択表示</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script>
+    var ma = new Array();  var data = new Array(); var res = new Array();
+    var year =now.getFullyear();
+    var month = now.getMonth()+1;
+    var date= now.getDate();
+    // 1) ファイル(fname)を読み込む
+    function getValue(){     // onload 時実行
+      var fname = '/csv/sensor_data_' + year + month + date + '.csv';  // 利用ファイル名を指定  --------------------
+      
+      // 2) 該当 csvファイルから chartデータに変換 getCsv( fname ) ----------------
+      ma = getCsv( fname ); //  → function: getCsv( fname )
+      // 3) 該当データ(ma)をgoogle.chartsで表示 → drawVisualization() ------------
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawVisualization);
+    }; // end of getValue(idname)  ------------------------------------------
+      // 2) 該当名(url)の csvファイルをchartデータとして整形
+      function getCsv(url){   //CSVファイルを文字列で取得。
+        var txt = new XMLHttpRequest();
+        txt.open('get', url, false);
+        txt.send();
+        // 改行ごとに配列化
+        var arr = txt.responseText.split('\n');
+        // 1次元配列を2次元配列に変換
+        res = [];
+        res[0] = arr[0].split(',');
+        for(var i = 1; i < arr.length; i++){
+          // 空白行が出てきた時点で終了
+          if(arr[i] == '') break;
+          // ","ごとに配列化
+          res[i] = arr[i].split(',');
+          for(var i2 = 1; i2 < res[i].length; i2++){
+            // 数字の場合は「' "」を削除 ･･･ 2列目以降に適用
+            if(res[i][i2].match(/\-?\d+(.\d+)?(e[\+\-]d+)?/)){
+              res[i][i2] = parseFloat(res[i][i2].replace(/'?"?/g, ""));
+            }
+          }
+        };
+        return res;  
+      }; // end of getCsv(url)  ---------------------------------------------
+      // 3) 該当データ(ma)を google.chartsで表示
+      function drawVisualization() {
+        data = google.visualization.arrayToDataTable( ma );
+        var options = {
+          title : 'ホコリ濃度', 
+            // 出典 http://www.mlit.go.jp/hakusyo/mlit/h27/hakusho/h28/html/n1114000.html
+            titleTextStyle : { color: '#333', fontSize: 20 },
+          vAxis: {title: '数値'},
+          hAxis: {title: '時間' },
+          seriesType: 'line',            // 全体は棒グラフ(default='line')
+            legendTextStyle : { color: '#333', fontSize: 12 },             // 積み上げ棒グラフ
+        };
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }; // end of drawVisualization() --------------------------------------
+  </script>
+  <style>
+     body { background:#efe; }
+     .waku1 { text-align:center; font-size:14px; width:1000px; height:500px; margin:0 auto; padding:0; background:#eef; }
+     .waku1 h3{ margin:3px; }
+     #graph { width:100%; height:99%; }
+  </style>
+</head>
+<body onload="getValue()">
+  <div class="waku1">
+    <h3>csv データを読み込みグラフ表示</h3>
+    <div id="graph">ここにグラフを表示</div>
+  </div>
+</body>
+</html>
+
