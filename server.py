@@ -6,9 +6,9 @@ date = datetime.datetime.now().strftime('%Y%m%d')
 file_path="./sensor_data_" + date +".csv"
 port_num=21118
 ###if os.path.isfile(file_path)==False :
-f = open(file_path, 'w')
-f.write("時間"+"," + "数値" + "\n")
-f.close()
+#f = open(file_path, 'w')
+#f.write("時間"+"," + "数値" + "\n")
+#f.close()
 @app.route('/',methods=['GET'])
 def get_html():
     return render_template('./index.html')
@@ -17,8 +17,8 @@ def update_lux():
    time = request.form["time"]
    lux = request.form["lux"]
    try:
-        f = open(file_path, 'a')
-        f.write(time + "," + lux + "," + "\n")
+        f = open(file_path, '')
+        f.write(time + "," + lux )
         return "succeeded to write" 
    except Exception as e:
      print(e)
