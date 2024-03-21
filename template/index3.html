@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+	<html lang="ja">
+	<head>
+	  <meta charset="UTF-8">
+	  <title>File 読み込みテスト</title>
+	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <script src="https://dygraphs.com/1.1.1/dygraph-combined-dev.js"></script>
+	  <script>
+	      function init(){
+	        var file = document.querySelector('#getfile');
+	        file.onchange = function (){
+	          var fileList = file.files;
+	          var reader = new FileReader();
+	          reader.readAsText(fileList[0]); // onchange時に読込む
+	          reader.onload = function() {   //読込み後グラフ表示
+	              ma= reader.result.split("\n"); mas2 = ma.length-2;
+	              mc = ma[0].split(",");
+	              alert(mas2+" 地点の "+mc[0]+"; "+mc[1]+","+mc[2]+" を読込ました");
+	              g = new Dygraph( document.getElementById("graph"), reader.result,{
+	                  showRoller: false, valueRange: [0,100]
+	              } );
+	          };
+	        };
+	      };
+	  </script>
+	</head>
+	<body onload="init();">
+	  <input type="file" id="getfile" accept="text/*">
+	  <div id="graph"></div>
+	</body>
+	</html>

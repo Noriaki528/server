@@ -11,7 +11,7 @@ f.write("時間"+"," + "数値" + "\n")
 f.close()
 @app.route('/',methods=['GET'])
 def get_html():
-    return render_template('./index2.html')
+    return render_template('./index.html')
 @app.route('/lux',methods=['POST'])
 def update_lux():
    time = request.form["time"]
