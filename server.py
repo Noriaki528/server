@@ -16,10 +16,10 @@ def get_html():
 def update_lux():
    time = request.form["time"]
    lux = request.form["lux"]
-   lux2 = request.form["lux2"]
+   ###lux2 = request.form["lux2"]
    try:
         f = open(file_path, 'a')
-        f.write(time + "," + lux + "," + lux2 + "," +"\n")
+        f.write(time + "," + lux + "," +"\n")
         return "succeeded to write" 
    except Exception as e:
      print(e)
